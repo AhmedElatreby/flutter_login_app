@@ -1,19 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-// import 'package:flutter_login_ui/common/theme_helper.dart';
+
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:new_app/common/theme_helper.dart';
 import 'package:new_app/pages/profile_page.dart';
 import 'package:new_app/pages/registration_page.dart';
 import 'package:new_app/pages/widgets/header_widget.dart';
 
-import '../common/theme_helper.dart';
 import 'forgot_password_page.dart';
-
-
-import 'forgot_password_page.dart';
-import 'profile_page.dart';
-import 'registration_page.dart';
-import 'widgets/header_widget.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -23,6 +18,17 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+
+    super.dispose();
+  }
+
   double _headerHeight = 250;
   Key _formKey = GlobalKey<FormState>();
 
@@ -61,8 +67,9 @@ class _LoginPageState extends State<LoginPage> {
                             children: [
                               Container(
                                 child: TextField(
+                                  controller: emailController,
                                   decoration: ThemeHelper().textInputDecoration(
-                                      'User Name', 'Enter your user name'),
+                                      'Email', 'Enter your email'),
                                 ),
                                 decoration:
                                     ThemeHelper().inputBoxDecorationShaddow(),
@@ -70,6 +77,7 @@ class _LoginPageState extends State<LoginPage> {
                               SizedBox(height: 30.0),
                               Container(
                                 child: TextField(
+                                  controller: passwordController,
                                   obscureText: true,
                                   decoration: ThemeHelper().textInputDecoration(
                                       'Password', 'Enter your password'),
@@ -114,14 +122,15 @@ class _LoginPageState extends State<LoginPage> {
                                           color: Colors.white),
                                     ),
                                   ),
-                                  onPressed: () {
-                                    //After successful login we will redirect to profile page. Let's create profile page now
-                                    Navigator.pushReplacement(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                ProfilePage()));
-                                  },
+                                  onPressed: signIn,
+                                  // () {
+                                  //   //After successful login we will redirect to profile page. Let's create profile page now
+                                  //   Navigator.pushReplacement(
+                                  //       context,
+                                  //       MaterialPageRoute(
+                                  //           builder: (context) =>
+                                  //               ProfilePage()));
+                                  // },
                                 ),
                               ),
                               Container(
@@ -154,5 +163,16 @@ class _LoginPageState extends State<LoginPage> {
         ),
       ),
     );
+  }
+
+  Future signIn() async {
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: emailController.text.trim(),
+        password: passwordController.text.trim(),
+      );
+    } on FirebaseAuthException catch (e) {
+      print(e);
+    }
   }
 }
