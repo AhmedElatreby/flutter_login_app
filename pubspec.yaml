@@ -40,6 +40,8 @@ dependencies:
   otp_text_field: ^1.1.3
   cloud_firestore: ^4.4.3
   firebase_auth: ^4.2.9
+  get_it:
+  get:
 
 dev_dependencies:
   flutter_test:

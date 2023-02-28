@@ -11,7 +11,7 @@ import 'package:new_app/pages/widgets/header_widget.dart';
 import 'forgot_password_page.dart';
 
 class LoginPage extends StatefulWidget {
-  const LoginPage({Key? key}) : super(key: key);
+  const LoginPage({Key? key, required String email}) : super(key: key);
 
   @override
   _LoginPageState createState() => _LoginPageState();

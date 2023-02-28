@@ -105,7 +105,7 @@ class _ProfilePageState extends State<ProfilePage>{
                 title: Text('Login Page', style: TextStyle(fontSize: _drawerFontSize, color: Theme.of(context).accentColor),
                 ),
                 onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => LoginPage()),);
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => LoginPage(email: '',)),);
                 },
               ),
               Divider(color: Theme.of(context).primaryColor, height: 1,),

@@ -131,7 +131,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                                       ..onTap = () {
                                         Navigator.push(
                                           context,
-                                          MaterialPageRoute(builder: (context) => LoginPage()),
+                                          MaterialPageRoute(builder: (context) => LoginPage(email: '',)),
                                         );
                                       },
                                     style: TextStyle(
