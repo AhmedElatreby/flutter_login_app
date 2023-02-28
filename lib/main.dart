@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:new_app/pages/splash_screen.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-void main() {
-  runApp( LoginApp());
+Future main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+
+
+  runApp(LoginApp());
 }
 
 class LoginApp extends StatelessWidget {
@@ -27,4 +32,3 @@ class LoginApp extends StatelessWidget {
     );
   }
 }
-
